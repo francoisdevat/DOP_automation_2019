@@ -42,17 +42,17 @@
 
 ## db-[99:101]-node.example.com
 
-[result]
-root@161.35.32.81
+[result_group]
+result ansible_ssh_host=161.35.32.81
 
-[worker]
-root@134.122.96.230
+[worker_group]
+worker ansible_ssh_host=134.122.96.230
 
-[postgres]
-root@178.128.46.102
+[postgres_group]
+postgres ansible_ssh_host=178.128.46.102
 
-[redis]
-root@178.62.91.195
+[redis_group]
+redis ansible_ssh_host=178.62.91.195
 
-[poll]
-root@64.227.40.180
+[poll_group]
+poll ansible_ssh_host=64.227.40.180
