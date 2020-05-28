@@ -1,30 +1,30 @@
 ---
-- hosts: all
+#- hosts: all
+#  become: true
+#  roles:
+#    - base
+
+- hosts: result_group
   become: true
   roles:
-    - base
+    - result
 
-- hosts: poll_groups
+- hosts: poll_group
   become: true
   roles:
     - poll
 
-- hosts: postgres_groups
-  become: true
-  roles:
-    - postgres
+#- hosts: postgres_group
+#  become: true
+#  roles:
+#    - postgres
 
-- hosts: redis_groups
-  become: true
-  roles:
-    - redis
+#- hosts: redis_group
+#  become: true
+#  roles:
+#    - redis
 
-- hosts: result_groups
-  become: true
-  roles:
-    - result
-    
-- hosts: worker_groups
+- hosts: worker_group
   become: true
   roles:
     - worker

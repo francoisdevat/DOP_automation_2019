@@ -1,0 +1,12 @@
+---
+  - name: copy file to remote host
+    copy: 
+      src: ./result.tar
+      dest: /tmp
+      mode: 0755
+
+  - name: Unarchive a file that is already on the remote machine
+    unarchive:
+      src: /tmp/result.tar
+      dest: /home/
+      remote_src: yes
