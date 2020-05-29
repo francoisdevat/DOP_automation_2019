@@ -1,16 +1,74 @@
-- name: Make sure the dependencies are installed
-  apt:
-    pkg:
-      - "python3-psycopg2"
-      - "locales"
-    state: present
-    update_cache: yes
+---
+  - name: Make sure the dependencies are installed
+    apt:
+      pkg:
+        - "python3-psycopg2"
+        - "python-psycopg2"
+        - "locales"
+        - "sudo"
+      state: present
+      update_cache: yes
 
-- name: Install Postgres
-  apt:
-    name:
-      - "postgresql"
-      - "postgresql-client"
-      - "postgresql-contrib"
-    state: present
-    update_cache: yes
+  - name: Install Postgres
+    apt:
+      name:
+        - "postgresql"
+        - "postgresql-client"
+        - "postgresql-contrib"
+      state: present
+      update_cache: yes
+
+  #- name: Copy database dump file
+  #  copy:
+  #    src: ./roles/postgres/files/pg_hba.conf
+  #    dest: /var/lib/postgres/data
+
+  - name: Start the Postgresql service
+    service:
+      name: postgresql
+      state: started
+      enabled: true
+
+  - name: Create pauldb database
+    postgresql_db:
+        name: pauldb
+        encoding: UTF-8
+        lc_collate: en_US.UTF-8
+        lc_ctype: en_US.UTF-8
+        state: present
+    become: yes
+    become_method: sudo
+    become_user: postgres
+
+  - name: Create paul role for pauldb
+    postgresql_user:
+        db: pauldb
+        user: paul
+        password: "democracyIsFragile"
+        priv: ALL
+        state: present
+    become: yes
+    become_method: sudo
+    become_user: postgres
+
+  #- name: Dump a single schema for an existing database
+  #  postgresql_db:
+  #    name: pauldb
+  #    state: dump
+ #     target: /tmp/pauldb.sql
+  #    target_opts: "-n public"
+  - name: Copy sql dump file
+    copy:
+      src: ./roles/postgres/files/schema.sql
+      dest: /home/
+
+  - name: Importing paul db data
+    shell: psql pauldb < /home/schema.sql
+    become: yes
+    become_method: sudo
+    become_user: postgres
+
+  - name: Restart PostgreSQL
+    service:
+      name: postgresql
+      state: restarted
