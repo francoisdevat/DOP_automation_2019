@@ -1,0 +1,8 @@
+[Unit]
+Description=worker
+
+[Service]
+ExecStart=/usr/bin/java /worker/src/main/java/Worker.java
+
+[Install]
+WantedBy=multi-user.target
