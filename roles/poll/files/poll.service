@@ -1,0 +1,8 @@
+[Unit]
+Description=poll
+
+[Service]
+ExecStart=/usr/bin/python /home/poll/app.py
+
+[Install]
+WantedBy=multi-user.target
