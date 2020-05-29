@@ -5,8 +5,31 @@
       dest: /tmp
       mode: 0755
 
+  - name: copy file to remote host
+    copy: 
+      src: ./roles/result/files/result.service
+      dest: /etc/systemd/system/
+      mode: 0755
+
   - name: Unarchive a file that is already on the remote machine
     unarchive:
       src: /tmp/result.tar
       dest: /home/
       remote_src: yes
+
+  - name: Make sure the dependencies are installed
+    apt:
+      pkg:
+        - "nodejs"
+      state: present
+      update_cache: yes
+
+  - name: Make sure a service is running
+    systemd:
+      name: result
+      enabled: yes
+
+  - name: Make sure a service is running
+    systemd:
+      name: result
+      state: started
