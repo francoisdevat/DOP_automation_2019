@@ -1,0 +1,19 @@
+[result_group]
+result ansible_ssh_host=161.35.32.81
+
+[worker_group]
+worker ansible_ssh_host=134.122.96.230
+
+[postgres_group]
+postgres ansible_ssh_host=178.128.46.102
+
+[redis_group]
+redis ansible_ssh_host=178.62.91.195
+
+[poll_group]
+poll ansible_ssh_host=64.227.40.180
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=root
+## ansible_ssh_pass=KentaroMiura

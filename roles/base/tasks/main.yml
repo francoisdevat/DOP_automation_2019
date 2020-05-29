@@ -1,0 +1,14 @@
+---
+  - name: Make sure the dependencies are installed
+    apt:
+      pkg:
+        - "python-pip"
+      state: present
+      update_cache: yes
+
+  - name: Make sure the dependencies from Result are installed
+    apt:
+      pkg:
+        - "nodejs"
+      state: present
+      update_cache: yes

@@ -16,20 +16,3 @@
       src: /tmp/worker.tar
       dest: /home/
       remote_src: yes
-
-  - name: Make sure the dependencies are installed
-    apt:
-      pkg:
-        - "nodejs"
-      state: present
-      update_cache: yes
-
-  - name: Make sure a service is running
-    systemd:
-      name: worker
-      enabled: yes
-
-  - name: Make sure a service is running
-    systemd:
-      name: worker
-      state: started

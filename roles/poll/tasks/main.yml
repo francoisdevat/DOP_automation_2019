@@ -18,13 +18,6 @@
       remote_src: yes
 
   - name: Make sure the dependencies are installed
-    apt:
-      pkg:
-        - "python-pip"
-      state: present
-      update_cache: yes
-
-  - name: Make sure the dependencies are installed
     pip:
       requirements: /home/poll/requirements.txt
 
